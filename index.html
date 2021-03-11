@@ -996,10 +996,21 @@
                 }
             };
 
+            const popupHuts = {
+                // "title": "{name}",
+                "content": "<img src={introductionThumbnail} /><br />" + 
+                "<h1>{name}</h1><i>{place}, {region}</i><br /><br />" + 
+                "<b>Facilities:</b> {facilities}<br />" + 
+                "<b>Status:</b> {status}<br />" + 
+                "<b>Bookable:</b> {bookable}<br />" + 
+                "<a href='{staticLink}'>More Info</a>"
+            }
+
             const hutsLayer = new FeatureLayer({
                 url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer",
                 renderer: hutsRenderer,
-                labelingInfo: [hutLabels]
+                labelingInfo: [hutLabels],
+                popupTemplate: popupHuts
             });
             map.add(trailsLayer);
             map.add(hutsLayer);
