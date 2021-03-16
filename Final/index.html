@@ -1,0 +1,241 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>GALOP Dev Prac</title>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #infoDiv {
+            position: absolute;
+            top: 15px;
+            left: 60px;
+        }
+
+        #infoDiv input {
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px;
+        }
+
+        .esri-elevation-profile.esri-component.esri-widget--panel {
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute !important;
+            bottom: 20;
+            left: 0;
+            right: 0;
+            width: 90% !important;
+            padding-left: 20 !important;
+            padding-right: 20 !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="./renderers.js"></script>
+    <script>
+        require([
+            "esri/config",
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/views/SceneView",
+            "esri/layers/VectorTileLayer",
+            "esri/layers/TileLayer",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/Locate",
+            "esri/layers/ElevationLayer",
+            "esri/widgets/Expand",
+            "esri/widgets/ElevationProfile",
+            "esri/geometry/Point"
+        ], function (
+            esriConfig,
+            Map,
+            MapView,
+            SceneView,
+            VectorTileLayer,
+            TileLayer,
+            FeatureLayer,
+            Locate,
+            ElevationLayer,
+            Expand,
+            ElevationProfile,
+            Point
+        ) {
+
+            esriConfig.apiKey = "AAPKdc9129c5be29469083dae3516545eeebvHghXVGFueZmm1AJKr4FRJ8Gkpkg2ZrHNiheHk6cGH6qvdp8RMVdW7rPzIgLG4cK";
+            var appConfig = {
+                mapView: null,
+                sceneView: null,
+                activeView: null,
+                container: "viewDiv" // use same container for views
+            };
+            var initialViewParams = {
+                center: new Point({ x: 1795999, y: 5457405, spatialReference: { wkid: 2193 } }),
+                zoom: 12,
+                container: appConfig.container
+            };
+            const topoLayer = new VectorTileLayer({
+                portalItem: {
+                    id: "734c12e9904b4a8086d2dff8582a93a1" // NZ Topo Relief (Eagle)
+                }
+            });
+            const hillshadeLayer = new TileLayer({
+                portalItem: {
+                    id: "38c860f8dbd24820b2a59ccc9a3dabdb" // NZ Alpha Hillshade (Eagle)
+                }
+            });
+            const imageryLayer = new TileLayer({
+                portalItem: {
+                    id: "d284729222d04a3cb548cfe27716ea43" // NZ - Imagery - latest (Eagle)
+                }
+            });
+            const elevationLayer2d = new ElevationLayer({
+                portalItem: {
+                    id: "2ce4fe7d77024e719f8a04d2155b3fd2"
+                }
+            });
+            const elevationLayer3d = new ElevationLayer({
+                portalItem: {
+                    id: "2ce4fe7d77024e719f8a04d2155b3fd2"
+                }
+            });
+            const trailsLayer3d = new FeatureLayer({
+                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Tracks/FeatureServer"
+            });
+            const trailsLayer2d = new FeatureLayer({
+                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Tracks/FeatureServer",
+                renderer: trailsRenderer
+            });
+            const hutsLayer3d = new FeatureLayer({
+                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer",
+                renderer: hutsRenderer,
+                labelingInfo: [hutLabels],
+                popupTemplate: popupHuts
+            });
+            const hutsLayer2d = new FeatureLayer({
+                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer",
+                renderer: hutsRenderer,
+                labelingInfo: [hutLabels],
+                popupTemplate: popupHuts
+            });
+
+            const map2d = new Map({
+                // layers: [imageTileLayer, vtlLayer, trailsLayer, hutsLayer],
+                layers: [hillshadeLayer, topoLayer, trailsLayer2d, hutsLayer2d],
+                ground: {
+                    layers: [elevationLayer2d]
+                }
+            });
+
+            const map3d = new Map({
+                layers: [imageryLayer, trailsLayer3d, hutsLayer3d],
+                ground: {
+                    layers: [elevationLayer3d]
+                }
+            });
+
+            // create 2D view and and set active
+            // initialViewParams.map = map2d;
+            appConfig.mapView = createView(initialViewParams, "2d");
+            appConfig.mapView.map = map2d;
+            appConfig.activeView = appConfig.mapView;
+
+            // create 3D view, won't initialize until container is set
+            initialViewParams.container = null;
+            initialViewParams.map = map3d;
+            appConfig.sceneView = createView(initialViewParams, "3d");
+
+            const locate2d = new Locate({
+                view: appConfig.mapView,
+                useHeadingEnabled: false,
+                goToOverride: function (view, options) {
+                    options.target.scale = 1500;
+                    return view.goTo(options.target);
+                }
+            });
+            appConfig.mapView.ui.add(locate2d, "top-left");
+
+            const locate3d = new Locate({
+                view: appConfig.sceneView,
+                useHeadingEnabled: false,
+                goToOverride: function (view, options) {
+                    options.target.scale = 1500;
+                    return view.goTo(options.target);
+                }
+            });
+            appConfig.sceneView.ui.add(locate3d, "top-left");
+
+            const elevationProfile2d = new ElevationProfile({ view: appConfig.mapView, profiles: [{ type: "ground" }] });
+            appConfig.mapView.when(function () {
+                appConfig.mapView.ui.add(elevationProfile2d);
+            });
+            const elevationProfile3d = new ElevationProfile({ view: appConfig.sceneView, profiles: [{ type: "ground" }] });
+            appConfig.sceneView.when(function () {
+                appConfig.sceneView.ui.add(elevationProfile3d);
+            });
+
+            // switch the view between 2D and 3D each time the button is clicked
+            var switchButton = document.getElementById("switch-btn");
+            switchButton.addEventListener("click", function () {
+                switchView();
+            });
+
+            // Switches the view from 2D to 3D and vice versa
+            function switchView() {
+                var is3D = appConfig.activeView.type === "3d";
+                var activeViewpoint = appConfig.activeView.viewpoint.clone();
+
+                // remove the reference to the container for the previous view
+                appConfig.activeView.container = null;
+
+                if (is3D) {
+                    // if the input view is a SceneView, set the viewpoint on the
+                    // mapView instance. Set the container on the mapView and flag
+                    // it as the active view
+                    appConfig.mapView.viewpoint = activeViewpoint;
+                    appConfig.mapView.container = appConfig.container;
+                    appConfig.activeView = appConfig.mapView;
+                    switchButton.value = "3D";
+                } else {
+                    appConfig.sceneView.viewpoint = activeViewpoint;
+                    appConfig.sceneView.container = appConfig.container;
+                    appConfig.activeView = appConfig.sceneView;
+                    switchButton.value = "2D";
+                }
+            }
+
+            // convenience function for creating a 2D or 3D view
+            function createView(params, type) {
+                var view;
+                var is2D = type === "2d";
+                if (is2D) {
+                    view = new MapView(params);
+                    return view;
+                } else {
+                    view = new SceneView(params);
+                }
+                return view;
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <div id="infoDiv">
+        <input class="esri-component esri-widget--button esri-widget esri-interactive" type="button" id="switch-btn"
+            value="3D" />
+    </div>
+</body>
+
+</html>
