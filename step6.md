@@ -34,7 +34,7 @@ SceneView
     a. duplicate the code defining both the huts and trail layers 
     b. rename the first set to hutsLayer2d/trailsLayer2d and the second to hutsLayer3d/trailsLayer3d
     c. remove the custom renderer from the 3d trails layer (CIM Symbols for lines and polygons aren't currently supported in 3d views)
-    d. do the same for the elevation layer
+    d. duplicate the elevation layer as well
     e. update the 3d map to point to the 3d layers (and change the variables of the 2d map to reflect your new 2d variable names)
 5. create a basemap for the 3d map
     a. add a new tile layer pointing to the TileLayer portal item id **d284729222d04a3cb548cfe27716ea43** (NZ - Imagery - latest (Eagle))
@@ -46,7 +46,7 @@ var appConfig = {
     mapView: null,
     sceneView: null,
     activeView: null,
-    container: "viewDiv" // use same container for views
+    container: "viewDiv"
 };
 ```
 7. Create a second object variable to store the initial state of your map app (add this code underneath the appConfig variable):
@@ -60,7 +60,8 @@ var initialViewParams = {
 8. update widgets to point to app config 
     a. duplicate widget code - 2d and 3d variants
     b. update the view references for the 2d variant to appConfig.mapView and for the 3d variant to appConfig.sceneView
-9. add code to create view (function) - end of file
+**fix other references to view**
+9. add code to create view (function) - end of the javascript section just before the closing brakets and script tag
 ```
 // convenience function for creating a 2D or 3D view
 function createView(params, type) {
@@ -76,6 +77,8 @@ function createView(params, type) {
 }
 ```
 10. add code to initialise view using the create view function (after creating your map objects and before adding widgets to the view)
+    a. remove the old code to create a single view
+    b. add this code to initialise 2d and 3d views in its place
 ```
 // create 2D view and and set active
 // initialViewParams.map = map2d;
@@ -88,6 +91,17 @@ initialViewParams.container = null;
 initialViewParams.map = map3d;
 appConfig.sceneView = createView(initialViewParams, "3d");
 ```
+    c. remove the line ```view.popup.defaultPopupTemplateEnabled = true;``` and update the initial view parameters object to be
+    ```
+        var initialViewParams = {
+        center: new Point({ x: 1795999, y: 5457405, spatialReference: { wkid: 2193 } }),
+        zoom: 12,
+        container: appConfig.container,
+        popup: {
+            defaultPopupTemplateEnabled: true
+        }
+    };
+    ```
 11. add switching code (just above the createView function)
 ```
 // switch the view between 2D and 3D each time the button is clicked
