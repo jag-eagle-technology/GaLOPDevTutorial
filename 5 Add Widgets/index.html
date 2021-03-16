@@ -14,10 +14,22 @@
             height: 100%;
             width: 100%;
         }
+        .esri-elevation-profile.esri-component.esri-widget--panel {
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute !important;
+            bottom: 20;
+            left: 0;
+            right: 0;
+            width: 90% !important;
+            padding-left: 20 !important;
+            padding-right: 20 !important;
+        }
     </style>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="renderers.js"></script>
     <script>
         require([
             "esri/config",
@@ -27,7 +39,10 @@
             "esri/layers/VectorTileLayer",
             "esri/layers/TileLayer",
             "esri/geometry/Point",
-            "esri/layers/FeatureLayer"
+            "esri/layers/FeatureLayer",
+            "esri/widgets/Locate",
+            "esri/layers/ElevationLayer",
+            "esri/widgets/ElevationProfile",
         ], function (
             esriConfig,
             Map,
@@ -36,7 +51,10 @@
             VectorTileLayer,
             TileLayer,
             Point,
-            FeatureLayer
+            FeatureLayer,
+            Locate,
+            ElevationLayer,
+            ElevationProfile,
         ) {
             esriConfig.apiKey = "AAPKdc9129c5be29469083dae3516545eeebvHghXVGFueZmm1AJKr4FRJ8Gkpkg2ZrHNiheHk6cGH6qvdp8RMVdW7rPzIgLG4cK";
             const topoLayer = new VectorTileLayer({
@@ -84,13 +102,23 @@
                 url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer",
                 popupTemplate: popupHuts,
                 labelingInfo: [labelHuts],
+                renderer: hutsRenderer,
             });
             const trailsLayer = new FeatureLayer({
-                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Tracks/FeatureServer"
+                url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Tracks/FeatureServer",
+                renderer: trailsRenderer
+            });
+            const elevationLayer = new ElevationLayer({
+                portalItem: {
+                    id: "2ce4fe7d77024e719f8a04d2155b3fd2"
+                }
             });
             const map = new Map({
                 basemap: basemap2d,
-                layers: [trailsLayer, hutsLayer]
+                layers: [trailsLayer, hutsLayer],
+                ground: {
+                    layers: [elevationLayer]
+                }
             });
             const view = new MapView({
                 map: map,
@@ -99,7 +127,22 @@
                 container: "viewDiv" // Div element
             });
             view.popup.defaultPopupTemplateEnabled = true;
-
+            const locate = new Locate({
+                view: view,
+                useHeadingEnabled: false,
+                goToOverride: function (view, options) {
+                    options.target.scale = 1500;
+                    return view.goTo(options.target);
+                }
+            });
+            view.ui.add(locate, "top-left");
+            const elevationProfile = new ElevationProfile({
+                view: view,
+                profiles: [{ type: "ground" }]
+            });
+            view.when(function () {
+                view.ui.add(elevationProfile);
+            });
         });
     </script>
 

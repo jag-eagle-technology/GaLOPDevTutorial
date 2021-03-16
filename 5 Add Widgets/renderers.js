@@ -1,66 +1,3 @@
-We are going to use CIM (Cartographic Information Model) Symbols to apply some advanced styling to our huts and trails. CIM symbols, among other things, allow us to create multi-layered symbols and vector icons. 
-
-# Creating a CIMSymbol from a SVG (Our Hut Renderer is blelow)
-1. Open ArcGIS Pro and select start without a template
-2. In the catalog pane project tab, right click styles and select new style
-3. name the style
-4. in the top ribbon seelct styes and then new item -> point symbol
-5. Select the point symbol in the center catalog pane and then select properties 
-6. Go to the symbol layers and then under form browse for your svg file
-7. Adjust the size and color of your symbol, then apply
-8. From the styles ribbon select share as web style then share your style with everyone
-9. Go to your shared style and copy the item id
-10. Go to the CIM builder at https://developers.arcgis.com/javascript/latest/cim-builder/, add a new layer, click the plus sign to the right of "Custom", and then paste in your web style the url https://[your argis org].maps.arcgis.com/sharing/rest/content/items/[item id]
-11. Ok, apply to symbol layer, get symbol json, copy json
-
-    https://eaglelabs.maps.arcgis.com/sharing/rest/content/items/791e71b941e2417ab7e377ad042d7fc6
-
-    {
-12. Create a renderer for your symbol to apply to your feature layer:
-const hutsRenderer = {
-    type: "simple",
-    symbol: {
-        type: "cim",
-        data: {
-            type: "CIMSymbolReference",
-            symbol: ... paste the json you copied from the builder here
-        },
-    },
-}
-
-# Creating CIMSymbols for Lines and Polygons
-Some introductory information is at https://developers.arcgis.com/javascript/latest/sample-code/cim-lines-and-polygons/. Our renderer for the trails is below.
-1. We use a renderer of type unique-value with an array of uniqueValueInfos to display custom symbols for open and closed traisl
-2. We use a CIMLineSymbol with multiple CIMSOlidStroke layers to create solid and dashed cased lines
-3. We include a CIMVectorMarker symbol to display closed icons along closed trails
-
-# Using a seperate javascript file to store these symbols
-You can reference a seperate javascript file to store these (lengthy) symbols and make your main code easier to read
-1. create a file named renderers.js in the same directory as your index.html
-2. copy in the renderers included below (or your own customised versions)
-3. reference this javascript file in your index.html:
-```
-    <script src="https://js.arcgis.com/4.18/"></script>
-    <script src="renderers.js"></script>
-    <script>
-```
-4. add the renderers to your feature layers:
-```
-const hutsLayer = new FeatureLayer({
-    url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer",
-    popupTemplate: popupHuts,
-    labelingInfo: [labelHuts],
-    renderer: hutsRenderer,
-});
-const trailsLayer = new FeatureLayer({
-    url: "https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Tracks/FeatureServer",
-    renderer: trailsRenderer
-});
-```
-
-# Our Renderers
-
-```
 const trailsRenderer = {
     "type": "unique-value",
     field: "STATUS",
@@ -364,10 +301,6 @@ const trailsRenderer = {
         }
     }]
 }
-```
-
-Here is our rendererer for the huts:
-```
 const hutsRenderer = {
     type: "simple",
     symbol: {
@@ -946,4 +879,3 @@ const hutsRenderer = {
         }
     }
 }
-```
