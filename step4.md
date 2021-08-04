@@ -4,7 +4,7 @@ We are going to use CIM (Cartographic Information Model) Symbols to apply some a
 1. Open ArcGIS Pro and select start without a template
 2. In the catalog pane project tab, right click styles and select new style
 3. name the style
-4. in the top ribbon seelct styes and then new item -> point symbol
+4. in the top ribbon select styles and then new item -> point symbol
 5. Select the point symbol in the center catalog pane and then select properties 
 6. Go to the symbol layers and then under form browse for your svg file
 7. Adjust the size and color of your symbol, then apply
@@ -30,7 +30,7 @@ const hutsRenderer = {
 
 # Creating CIMSymbols for Lines and Polygons
 Some introductory information is at https://developers.arcgis.com/javascript/latest/sample-code/cim-lines-and-polygons/. Our renderer for the trails is below.
-1. We use a renderer of type unique-value with an array of uniqueValueInfos to display custom symbols for open and closed traisl
+1. We use a renderer of type unique-value with an array of uniqueValueInfos to display custom symbols for open and closed trails
 2. We use a CIMLineSymbol with multiple CIMSOlidStroke layers to create solid and dashed cased lines
 3. We include a CIMVectorMarker symbol to display closed icons along closed trails
 
@@ -57,6 +57,27 @@ const trailsLayer = new FeatureLayer({
     renderer: trailsRenderer
 });
 ```
+# Using a seperate javascript file to store your main map code
+You can also reference a seperate javascript file to store your growing map code.
+1. Create a file called map.js in the same directory as your index.html
+2. reference this file by adding a second script tag after your renderers script tag. Adding the tag after the renderers tag will make sure your renderers are available in the main map file
+```
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="renderers.js"></script>
+    <script src="map.js"></script>
+    <script>
+```
+3. move everything in your main script tag into the map.js file
+# Using a seperate CSS file to store styles
+Lets also move our CSS styles from the styles tag to a seperate file
+1. create a file named styles.css in the same directory as your index.html
+2. reference this css file in your index.html:
+```
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://js.arcgis.com/4.18/"></script>
+```
+3. move everything within the style section of your index.html into this file
 
 # Our Renderers
 

@@ -7,7 +7,7 @@ We will be customising the example at https://developers.arcgis.com/javascript/l
             value="3D" />
     </div>
 ```
-(these styles go inside your style tag)
+(these styles go into your styles.css file)
 ```
     #infoDiv {
         position: absolute;
