@@ -77,6 +77,7 @@
         ...
         BasemapGallery,
     ) {
+     ```
 
     b. update the name of your existing basemap and add in a couple of additional basemaps
     ```
