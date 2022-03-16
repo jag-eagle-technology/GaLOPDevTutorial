@@ -1,6 +1,6 @@
 # Eagle Technology GaLOP Summer 2021 - ArcGIS Developer Options Practical Exercise
 
-Go through the following to make [this tramping map](https://laughing-euler-336e24.netlify.app/final/)
+Go through the following to make [this tramping map](https://laughing-euler-336e24.netlify.app/7%20add%20application%20ui/))
 
  [Step 1: Display A Map](step1.md) | [Result](https://laughing-euler-336e24.netlify.app/1%20display%20a%20map/)
 
@@ -12,8 +12,8 @@ Go through the following to make [this tramping map](https://laughing-euler-336e
 
  [Step 5: Add Location and Elevation Profile widgets](step5.md) | [Result](https://laughing-euler-336e24.netlify.app/5%20add%20widgets/)
 
- [Step 6: Add a animated wind layer](step6.md) | [Result](https://laughing-euler-336e24.netlify.app/5%20add%20widgets/)
+ [Step 6: Add a animated wind layer](step6.md) | [Result](https://laughing-euler-336e24.netlify.app/6%20add%20wind/)
 
- [Step 7 (Advanced): Add a calcite app UI](step7.md)
+ [Step 7 (Advanced): Add a calcite app UI](step7.md) | [Result](https://laughing-euler-336e24.netlify.app/7%20add%20application%20ui/)
  
- [Step 8 (Advanced): Add a 3D View](step8.md)
+ [Step 8 (Advanced): Add a 3D View](step8.md) - this is for an old version of this tutorial but could be adapted if you're keen!
