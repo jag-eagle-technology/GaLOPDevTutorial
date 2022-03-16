@@ -1,4 +1,4 @@
-# Eagle Technology GaLOP Summer 2021 - ArcGIS Developer Options Practical Exercise
+# Eagle Technology GaLOP - ArcGIS Developer Options Practical Exercise
 
 Go through the following to make [this tramping map](https://laughing-euler-336e24.netlify.app/7%20add%20application%20ui/))
 
