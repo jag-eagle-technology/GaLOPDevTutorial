@@ -1,8 +1,8 @@
-0. Enable default popups by adding the following code after you define your view: 
+1. Enable default popups by adding the following code after you define your view: 
 ``` 
 view.popup.defaultPopupTemplateEnabled = true; 
 ```
-1. Follow the instructions at https://developers.arcgis.com/javascript/latest/display-a-pop-up/ to display popups for the huts and trails. You could use something like the following to include images of the huts:
+2. Adapt the instructions at https://developers.arcgis.com/javascript/latest/display-a-pop-up/#display-attributes to customise the popup for huts. You'll need to start at the "Display Attributes" section. You could use something like the following to include images of the huts:
 
 ```
 const popupHuts = {
@@ -15,7 +15,7 @@ const popupHuts = {
 }
 ```
 
-2. Follow the instructions at https://developers.arcgis.com/javascript/latest/style-a-feature-layer/ to display labels for the huts and trails. We used the following to label the huts:
+3. Adapt the instructions on labelling at https://developers.arcgis.com/javascript/latest/style-a-feature-layer/ to display labels for huts. We used the following to label the huts:
 ```
 const labelHuts = {
     // autocasts as new LabelClass()
