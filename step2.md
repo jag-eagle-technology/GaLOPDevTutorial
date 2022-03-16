@@ -24,10 +24,17 @@
     ```
     b. update the center property of your map to a new point with the NZTM coordinates you wish to center your map on:
     ```
-    center: new Point({ x: 1795999, y: 5457405, spatialReference: { wkid: 2193 } }),
+        const view = new MapView({
+          map: map,
+          center: new Point({ x: 1795999, y: 5457405, spatialReference: { wkid: 2193 } }), // nztm coordinates
+          zoom: 3, // Zoom level
+          container: "viewDiv", // Div element
+        });
+    
     ```
+    c. update the zoom property of your map to a higher level, e.g. 10
 
-4. Follow the instructions at https://developers.arcgis.com/javascript/latest/add-a-feature-layer/ to display the following layers:
+4. Follow the instructions at https://developers.arcgis.com/javascript/latest/add-a-feature-layer/ to add a feature layer. Adapt the instructions to display the following layers:
 
 | Description | URL             |
 | ----------- | --------------- |
@@ -35,7 +42,7 @@
 | Doc Huts    | https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Huts/FeatureServer   |
 
 
-5. Replace the calls to map.add with the map layers array. You need to define the layers before you create the map, and then include them in the array like this:
+5. Replace the calls to map.add with the map layers array. You need to move the layer defenitions to before where you create the map, and then include them in the map layer array like this:
 
     ```
     const map = new Map({
