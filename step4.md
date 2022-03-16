@@ -17,6 +17,7 @@ We are going to use CIM (Cartographic Information Model) Symbols to apply some a
 
     {
 12. Create a renderer for your symbol to apply to your feature layer:
+```
 const hutsRenderer = {
     type: "simple",
     symbol: {
@@ -27,6 +28,7 @@ const hutsRenderer = {
         },
     },
 }
+```
 
 # Creating CIMSymbols for Lines and Polygons
 Some introductory information is at https://developers.arcgis.com/javascript/latest/sample-code/cim-lines-and-polygons/. Our renderer for the trails is below.
