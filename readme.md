@@ -12,4 +12,8 @@ Go through the following to make [this tramping map](https://laughing-euler-336e
 
  [Step 5: Add Location and Elevation Profile widgets](step5.md) | [Result](https://laughing-euler-336e24.netlify.app/5%20add%20widgets/)
 
- [Step 6 (Advanced): Add a 3D View](step6.md) | [Result](https://laughing-euler-336e24.netlify.app/6%20advanced%20-%20add%203d%20mode/)
+ [Step 6: Add a animated wind layer](step6.md) | [Result](https://laughing-euler-336e24.netlify.app/5%20add%20widgets/)
+
+ [Step 7 (Advanced): Add a calcite app UI](step7.md)
+ 
+ [Step 8 (Advanced): Add a 3D View](step8.md)
