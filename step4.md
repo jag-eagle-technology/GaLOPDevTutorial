@@ -1,6 +1,6 @@
 We are going to use CIM (Cartographic Information Model) Symbols to apply some advanced styling to our huts and trails. CIM symbols, among other things, allow us to create multi-layered symbols and vector icons. 
 
-# Creating a CIMSymbol from a SVG (Our Hut Renderer is blelow)
+# Creating a CIMSymbol from a SVG (Our Hut Renderer is below)
 1. Open ArcGIS Pro and select start without a template
 2. In the catalog pane project tab, right click styles and select new style
 3. name the style
@@ -38,9 +38,9 @@ Some introductory information is at https://developers.arcgis.com/javascript/lat
 You can reference a seperate javascript file to store these (lengthy) symbols and make your main code easier to read
 1. create a file named renderers.js in the same directory as your index.html
 2. copy in the renderers included below (or your own customised versions)
-3. reference this javascript file in your index.html:
+3. reference this javascript file in this location in your index.html:
 ```
-    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="https://js.arcgis.com/4.22/"></script>
     <script src="renderers.js"></script>
     <script>
 ```
@@ -62,22 +62,22 @@ You can also reference a seperate javascript file to store your growing map code
 1. Create a file called map.js in the same directory as your index.html
 2. reference this file by adding a second script tag after your renderers script tag. Adding the tag after the renderers tag will make sure your renderers are available in the main map file
 ```
-    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="https://js.arcgis.com/4.22/"></script>
     <script src="renderers.js"></script>
     <script src="map.js"></script>
     <script>
 ```
-3. move everything in your main script tag into the map.js file
+3. move everything in your main script tag (not including the <script> tags) into the map.js file
 # Using a seperate CSS file to store styles
 Lets also move our CSS styles from the styles tag to a seperate file
 1. create a file named styles.css in the same directory as your index.html
 2. reference this css file in your index.html:
 ```
-    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="https://js.arcgis.com/4.22/"></script>
 ```
-3. move everything within the style section of your index.html into this file
+3. move everything within the style section of your index.html (not including the <style> tags) into this file
 
 # Our Renderers
 
