@@ -25,6 +25,7 @@
     <script src="map.js"></script>
   </head>
   <body>
+    <!-- <calcite-loader active></calcite-loader> -->
     <calcite-shell content-behind>
       <h2 id="header-title" slot="header">NZ Tramping Trails</h2>
       <calcite-shell-panel slot="primary-panel" detached>
@@ -34,9 +35,40 @@
             icon="altitude"
             text="Profile"
           ></calcite-action>
+          <calcite-action
+            data-action-id="basemaps"
+            icon="basemap"
+            text="Basemap"
+          ></calcite-action>
+          <calcite-action
+            data-action-id="layers"
+            icon="layers"
+            text="Layers"
+          ></calcite-action>
         </calcite-action-bar>
-        <calcite-panel heading="Elevation Profile" height-scale="1" data-panel-id="profile" hidden>
+        <calcite-panel
+          heading="Elevation Profile"
+          height-scale="1"
+          data-panel-id="profile"
+          hidden
+        >
           <div id="profile"></div>
+        </calcite-panel>
+        <calcite-panel
+          heading="Basemap"
+          height-scale="1"
+          data-panel-id="basemaps"
+          hidden
+        >
+          <div id="basemaps"></div>
+        </calcite-panel>
+        <calcite-panel
+          heading="Layers"
+          height-scale="1"
+          data-panel-id="layers"
+          hidden
+        >
+          <div id="layers"></div>
         </calcite-panel>
       </calcite-shell-panel>
       <div id="viewDiv"></div>

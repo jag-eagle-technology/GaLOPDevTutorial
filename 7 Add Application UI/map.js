@@ -168,21 +168,26 @@ require([
     profiles: [{ type: "ground" }],
     container: "profile",
   });
-  view.when(function () {
-    // view.ui.add(elevationProfile);
-  });
+
   const basemapGallery = new BasemapGallery({
     view: view,
     source: [topoBasemap, linzBasemap, imageryBasemap],
+    container: "basemaps",
   });
-  view.ui.add(basemapGallery, "top-right");
-  view.when(() => {
-    const layerList = new LayerList({
-      view: view,
-    });
 
-    // Add widget to the top right corner of the view
-    view.ui.add(layerList, "top-right");
+  const layerList = new LayerList({
+    view: view,
+    container: "layers",
+  });
+
+  // map.when(() => {
+  //   document.querySelector("calcite-shell").hidden = false;
+  //   document.querySelector("calcite-loader").active = false;
+  // });
+
+  view.when(() => {
+    // document.querySelector("calcite-shell").hidden = false;
+    // document.querySelector("calcite-loader").active = false;
 
     let activeWidget;
 
@@ -213,6 +218,8 @@ require([
       }
     };
     // here we actually add the code to the action bar
-    document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick); 
+    document
+      .querySelector("calcite-action-bar")
+      .addEventListener("click", handleActionBarClick);
   });
 });
