@@ -1,6 +1,6 @@
 # Eagle Technology GaLOP - ArcGIS Developer Options Practical Exercise
 
-Go through the following to make [this tramping map](https://laughing-euler-336e24.netlify.app/7%20add%20application%20ui/))
+Go through the following to make [this tramping map](https://laughing-euler-336e24.netlify.app/7%20add%20application%20ui/)). It's a good habit to try and commit your code after each step / after each significant code change. 
 
  [Step 1: Display A Map](step1.md) | [Result](https://laughing-euler-336e24.netlify.app/1%20display%20a%20map/)
 
