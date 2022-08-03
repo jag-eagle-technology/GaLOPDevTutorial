@@ -5,3 +5,5 @@
 5. enter a message in the source control section (something like ```first commit - add index.html```) and commit you new file
 6. Follow the instructions at https://developers.arcgis.com/javascript/latest/display-a-map/ but rather than doing this on codepen add the code to your index.html file to display a map. You need to copy in the GREEN text for each step and insert it in the same location as shown in the tutorial.
 7. Once you're finished, enter a message and commit your changes
+
+TIP: the keyboard shortcut ctrl+shift+F will autoformat your code. This is very useful!
