@@ -159,3 +159,4 @@ view.when(() => {
   document.querySelector("calcite-action-bar").addEventListener("click", handleActionBarClick);
 });
 ```
+10. Test then commit your changes!

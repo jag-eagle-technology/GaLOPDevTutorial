@@ -63,3 +63,4 @@ We'll adapt the sample code at https://developers.arcgis.com/javascript/latest/s
   });
 
 ```
+5. Commit your changes!

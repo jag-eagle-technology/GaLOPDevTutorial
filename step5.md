@@ -1,4 +1,4 @@
-1. Follow the instructions at https://developers.arcgis.com/javascript/latest/display-your-location/#find-your-geolocation starting at the "Find Your GeoLocation" section to display your current location on the map (adding the javascript into your map.js file)
+1. Follow the instructions at https://developers.arcgis.com/javascript/latest/display-your-location/#find-your-geolocation starting at the "Find Your GeoLocation" section to display your current location on the map (adding the javascript into your map.js file). When finished commit your changes!
 2. Add the elevation profile widget to your map (see https://developers.arcgis.com/javascript/latest/sample-code/widgets-elevation-profile/ for sample code):
    a. in your map.js file, import the widget and the ElevationLayer class:
    ```
@@ -63,6 +63,7 @@
            padding-right: 20 !important;
        }
    ```
+   f. commit your changes!
 3. Add a basemap switcher to your map (see https://developers.arcgis.com/javascript/latest/change-the-basemap-layer/)
    a. in your map.js file, import the widget:
 
@@ -150,6 +151,7 @@
    });
    view.ui.add(basemapGallery, "top-right");
    ```
+   d. commit your changes!
 
 4. add a layer list widget to your map. Sample code for this can be found at https://developers.arcgis.com/javascript/latest/sample-code/widgets-layerlist/.
 
@@ -182,3 +184,4 @@
         view.ui.add(layerList, "top-right");
     });
     ```
+   c. commit your changes!

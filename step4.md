@@ -1,5 +1,9 @@
 We are going to use CIM (Cartographic Information Model) Symbols to apply some advanced styling to our huts and trails. CIM symbols, among other things, allow us to create multi-layered symbols and vector icons. 
 
+# Some handy CIM resources
+
+https://developers.arcgis.com/javascript/latest/visualization/symbols-color-ramps/cim-builder/#related-samples-and-resources
+https://developers.arcgis.com/javascript/latest/sample-code/playground/
 # Creating a CIMSymbol from a SVG (Our Hut Renderer is below)
 1. Open ArcGIS Pro and select start without a template
 2. In the catalog pane project tab, right click styles and select new style
@@ -29,7 +33,7 @@ const hutsRenderer = {
     },
 }
 ```
-
+13. Commit your changes!
 # Creating CIMSymbols for Lines and Polygons
 Some introductory information is at https://developers.arcgis.com/javascript/latest/sample-code/cim-lines-and-polygons/. Our renderer for the trails is below.
 1. We use a renderer of type unique-value with an array of uniqueValueInfos to display custom symbols for open and closed trails
@@ -59,6 +63,7 @@ const trailsLayer = new FeatureLayer({
     renderer: trailsRenderer
 });
 ```
+5. Test then commit your changes!
 # Using a seperate javascript file to store your main map code
 You can also reference a seperate javascript file to store your growing map code.
 1. Create a file called map.js in the same directory as your index.html
@@ -70,6 +75,7 @@ You can also reference a seperate javascript file to store your growing map code
     <script>
 ```
 3. move everything in your main script tag (not including the <script> tags) into the map.js file
+4. Test then commit your changes!
 # Using a seperate CSS file to store styles
 Lets also move our CSS styles from the styles tag to a seperate file
 1. create a file named styles.css in the same directory as your index.html
@@ -80,6 +86,7 @@ Lets also move our CSS styles from the styles tag to a seperate file
     <script src="https://js.arcgis.com/4.22/"></script>
 ```
 3. move everything within the style section of your index.html (not including the <style> tags) into this file
+4. Test then commit your changes!
 
 # Our Renderers
 
