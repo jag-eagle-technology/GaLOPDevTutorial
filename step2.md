@@ -50,3 +50,4 @@
         layers: [trailsLayer, hutsLayer]
     });
     ```
+ 6. Commit your changes
