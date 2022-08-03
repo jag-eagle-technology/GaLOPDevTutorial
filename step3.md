@@ -36,3 +36,4 @@ const labelHuts = {
 };
 
 ```
+4. Commit your changes
